@@ -37,6 +37,24 @@
 >operaciones (Multiplicación e1 e2) = 1 + operaciones e1 + operaciones e2
 >operaciones (División e1 e2) 		= 1 + operaciones e1 + operaciones e2
 
+>sumaLiterales :: Expresión -> Integer
+>sumaLiterales (Literal n)				= n
+>sumaLiterales (Negativo e) 			= sumaLiterales e
+>sumaLiterales (Suma e1 e2) 			= sumaLiterales e1 + sumaLiterales e2
+>sumaLiterales (Resta e1 e2) 			= sumaLiterales e1 + sumaLiterales e2
+>sumaLiterales (Multiplicación e1 e2) 	= sumaLiterales e1 + sumaLiterales e2
+>sumaLiterales (División e1 e2) 		= sumaLiterales e1 + sumaLiterales e2
+
+>literales :: Expresión -> [Integer]
+>literales (Literal n)				= [n]
+>literales (Negativo e) 			= literales e
+>literales (Suma e1 e2) 			= literales e1 ++ literales e2
+>literales (Resta e1 e2) 			= literales e1 ++ literales e2
+>literales (Multiplicación e1 e2) 	= literales e1 ++ literales e2
+>literales (División e1 e2) 		= literales e1 ++ literales e2
+
+altura :: Expresión -> Integer 
+
 >t1, t2, t3 :: Expresión
 >t1  = Literal 42
 >t2  = Suma (Literal 27) t1
