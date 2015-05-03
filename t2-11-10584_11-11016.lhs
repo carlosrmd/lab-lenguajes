@@ -7,8 +7,8 @@
 >import Control.Applicative 	(pure)
 >import Control.DeepSeq		(NFData, ($!!))
 >import Control.Monad		(void)
->import Data.Map				(Map, empty, singleton)
->import GHC.Generics			(Generic)
+>import Data.Map			(Map, empty, foldWithKey, singleton)
+>import GHC.Generics		(Generic)
 >import System.Environment 	(getArgs, getProgName)
 >import System.IO 			(hPutStrLn, stderr)
 
@@ -53,11 +53,37 @@
 >literales (Multiplicación e1 e2) 	= literales e1 ++ literales e2
 >literales (División e1 e2) 		= literales e1 ++ literales e2
 
-altura :: Expresión -> Integer 
+>altura :: Expresión -> Integer
+>altura (Literal n)				= 0
+>altura (Negativo e) 			= 1 + altura e
+>altura (Suma e1 e2) 			= 1 + max (altura e1)  (altura e2)
+>altura (Resta e1 e2) 			= 1 + max (altura e1)  (altura e2)
+>altura (Multiplicación e1 e2) 	= 1 + max (altura e1)  (altura e2)
+>altura (División e1 e2) 		= 1 + max (altura e1)  (altura e2)
 
 
 >cataExpresión :: (a -> a -> a) -> (a -> a -> a) -> (a -> a -> a) -> (a -> a -> a) -> (a -> a) -> (Integer -> a) -> Expresión -> a
 >cataExpresión suma resta multiplicación división negativo literal = undefined
+
+>type Atributos = Map String String
+>newtype Documento
+>	= Documento Elemento
+>	deriving Show
+
+>data Elemento
+>	= Elemento String Atributos [Elemento]
+>	| Texto String
+>	deriving Show
+
+>htmlE, headE, bodyE, divE :: [Elemento] -> Elemento
+>htmlE	[] 	= Elemento "html" (singleton "xmlns" "http://www.w3.org/1999/xhtml") []
+>htmlE	[e] = Elemento "html" (singleton "xmlns" "http://www.w3.org/1999/xhtml") [e]
+>headE	[]	= Elemento "head" (empty) []
+>headE	[e]	= Elemento "head" (empty) [e]
+>bodyE	[]	= Elemento "body" (empty) []
+>bodyE	[e]	= Elemento "body" (empty) [e]
+>divE	[]	= Elemento "div" (empty) []
+>divE	[e]	= Elemento "div" (empty) [e]
 
 >t1, t2, t3 :: Expresión
 >t1  = Literal 42
