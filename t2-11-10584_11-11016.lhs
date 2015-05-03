@@ -55,6 +55,10 @@
 
 altura :: Expresión -> Integer 
 
+
+>cataExpresión :: (a -> a -> a) -> (a -> a -> a) -> (a -> a -> a) -> (a -> a -> a) -> (a -> a) -> (Integer -> a) -> Expresión -> a
+>cataExpresión suma resta multiplicación división negativo literal = undefined
+
 >t1, t2, t3 :: Expresión
 >t1  = Literal 42
 >t2  = Suma (Literal 27) t1
