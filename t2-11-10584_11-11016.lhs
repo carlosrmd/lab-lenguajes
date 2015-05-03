@@ -85,6 +85,12 @@
 >divE	[]	= Elemento "div" (empty) []
 >divE	[e]	= Elemento "div" (empty) [e]
 
+>styleE, titleE, h1E, pE :: String -> Elemento
+>styleE	s = Elemento "style" (singleton "type" "text/css") [Texto s]
+>titleE	s = Elemento "tittle" empty [Texto s]
+>h1E	s = Elemento "h1" empty [Texto s]
+>pE 	s = Elemento "p" empty [Texto s]
+
 >t1, t2, t3 :: Expresión
 >t1  = Literal 42
 >t2  = Suma (Literal 27) t1
