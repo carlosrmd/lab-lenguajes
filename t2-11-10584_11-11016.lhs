@@ -129,9 +129,10 @@ Ejercicio 12
 >		= undefined
 
 >instance RenderXHTML Atributos where
->	render atrib = concat (Prelude.map (\(k,a) -> k ++ "='" ++ a ++ "' ") (toList atrib))
+>	render atrib = concat (Prelude.map (\(k,a) -> " " ++ k ++ "='" ++ a ++ "'") (toList atrib))
 
 Ejercicio 13
 
 >instance RenderXHTML Elemento where
->	render = undefined
+>	render (Texto t) = t
+>	render (Elemento tag atrib elems) = "<" ++ tag ++ (render atrib) ++ ">" ++ (concat (Prelude.map render elems)) ++ "</" ++ tag ++ ">"
