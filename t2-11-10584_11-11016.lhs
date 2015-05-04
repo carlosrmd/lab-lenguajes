@@ -7,10 +7,10 @@
 >import Control.Applicative 	(pure)
 >import Control.DeepSeq		(NFData, ($!!))
 >import Control.Monad		(void)
->import Data.Map			(Map, empty, foldWithKey, singleton)
+>import Data.Map		--(Map, empty, foldWithKey, singleton)
 >import GHC.Generics		(Generic)
 >import System.Environment 	(getArgs, getProgName)
->import System.IO 			(hPutStrLn, stderr)
+>import System.IO 		(hPutStrLn, stderr)
 
 >data Expresión
 >	= Suma 			 Expresión Expresión
@@ -110,7 +110,7 @@ Ejercicio 10
 
 >styleE, titleE, h1E, pE :: String -> Elemento
 >styleE	s = Elemento "style" (singleton "type" "text/css") [Texto s]
->titleE	s = Elemento "tittle" empty [Texto s]
+>titleE	s = Elemento "title" empty [Texto s]
 >h1E	s = Elemento "h1" empty [Texto s]
 >pE 	s = Elemento "p" empty [Texto s]
 
@@ -128,5 +128,10 @@ Ejercicio 12
 >	render (Documento raíz)
 >		= undefined
 
-instance RenderXHTML Atributos where
-	render (Atributos atrib) = undefined
+>instance RenderXHTML Atributos where
+>	render atrib = concat (Prelude.map (\(k,a) -> k ++ "='" ++ a ++ "' ") (toList atrib))
+
+Ejercicio 13
+
+>instance RenderXHTML Elemento where
+>	render = undefined
