@@ -77,7 +77,7 @@
 
 >htmlE, headE, bodyE, divE :: [Elemento] -> Elemento
 >htmlE	[] 	= Elemento "html" (singleton "xmlns" "http://www.w3.org/1999/xhtml") []
->htmlE	[e] = Elemento "html" (singleton "xmlns" "http://www.w3.org/1999/xhtml") [e]https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/using-ghc.html#idp8605200
+>htmlE	[e] = Elemento "html" (singleton "xmlns" "http://www.w3.org/1999/xhtml") [e]
 >headE	[]	= Elemento "head" (empty) []
 >headE	[e]	= Elemento "head" (empty) [e]
 >bodyE	[]	= Elemento "body" (empty) []
