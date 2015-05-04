@@ -77,7 +77,7 @@
 
 >htmlE, headE, bodyE, divE :: [Elemento] -> Elemento
 >htmlE	[] 	= Elemento "html" (singleton "xmlns" "http://www.w3.org/1999/xhtml") []
->htmlE	[e] = Elemento "html" (singleton "xmlns" "http://www.w3.org/1999/xhtml") [e]
+>htmlE	[e] = Elemento "html" (singleton "xmlns" "http://www.w3.org/1999/xhtml") [e]https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/using-ghc.html#idp8605200
 >headE	[]	= Elemento "head" (empty) []
 >headE	[e]	= Elemento "head" (empty) [e]
 >bodyE	[]	= Elemento "body" (empty) []
@@ -90,6 +90,9 @@
 >titleE	s = Elemento "tittle" empty [Texto s]
 >h1E	s = Elemento "h1" empty [Texto s]
 >pE 	s = Elemento "p" empty [Texto s]
+
+>showP :: Show a => a -> Elemento
+>showP	s = Texto (show s)
 
 >t1, t2, t3 :: Expresión
 >t1  = Literal 42
