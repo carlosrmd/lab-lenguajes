@@ -81,11 +81,26 @@ Ejercicio 6
 Ejercicio 7
 
 >cataExpresión :: (a -> a -> a) -> (a -> a -> a) -> (a -> a -> a) -> (a -> a -> a) -> (a -> a) -> (Integer -> a) -> Expresión -> a
->cataExpresión suma resta multiplicación división negativo literal = undefined
+>cataExpresión suma resta multiplicación división negativo literal expr 
+>	= case expr of
+>		(Literal n) -> literal n
 
 Ejercicio 8
 
-
+>evaluar' :: Expresión -> Double
+>evaluar' = undefined
+>
+>operaciones' :: Expresión -> Integer
+>operaciones' = undefined
+>
+>sumaLiterales' :: Expresión -> Integer
+>sumaLiterales' = undefined
+>
+>literales' :: Expresión -> [Integer]
+>literales' = undefined
+>
+>altura' :: Expresión -> Integer
+>altura' = undefined
 
 Ejercicio 9
 
@@ -126,7 +141,7 @@ Ejercicio 12
 
 >instance RenderXHTML Documento where
 >	render (Documento raíz)
->		= undefined
+>		= render raíz
 
 >instance RenderXHTML Atributos where
 >	render atrib = concat (Prelude.map (\(k,a) -> " " ++ k ++ "='" ++ a ++ "'") (toList atrib))
@@ -136,3 +151,30 @@ Ejercicio 13
 >instance RenderXHTML Elemento where
 >	render (Texto t) = t
 >	render (Elemento tag atrib elems) = "<" ++ tag ++ (render atrib) ++ ">" ++ (concat (Prelude.map render elems)) ++ "</" ++ tag ++ ">"
+
+Ejercicio 14
+
+
+
+Ejercicio 15
+
+>expresiónDocumento :: Expresión -> Documento
+>expresiónDocumento e = undefined
+
+Main
+
+>deriving instance Generic Expresión
+>instance NFData Expresión
+>
+>main :: IO ()
+>main = do
+>	args <- getArgs
+>	case args of
+>		(nombreArchivo : expresiónTexto : _) -> do
+>			expresión <- pure $!! read expresiónTexto
+>			writeFile nombreArchivo . render $ expresiónDocumento expresión
+>
+>		_ -> do
+>			progName <- getProgName
+>			hPutStrLn stderr $ "Uso: " ++ progName ++ " ARCHIVO.xhtml EXPRESIÓN"
+
